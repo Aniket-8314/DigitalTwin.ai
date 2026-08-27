@@ -149,66 +149,66 @@ Instead of stopping at anomaly detection, the platform moves from machine teleme
 
 ## 📁 Project Structure
 
-DigitalTwin.ai/
-│
-├── backend/
-│   │
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── twin.py
-│   │   │
-│   │   ├── ml/
-│   │   │   ├── anomaly.py
-│   │   │   ├── bottleneck.py
-│   │   │   ├── defect.py
-│   │   │   ├── features.py
-│   │   │   ├── live_features.py
-│   │   │   ├── live_predictor.py
-│   │   │   ├── recommendation.py
-│   │   │   ├── risk_score.py
-│   │   │   └── root_cause.py
-│   │   │
-│   │   ├── simulation/
-│   │   │   ├── dataset.py
-│   │   │   ├── dynamics.py
-│   │   │   ├── generator.py
-│   │   │   ├── propagation.py
-│   │   │   ├── quality.py
-│   │   │   └── what_if.py
-│   │   │
-│   │   └── twin/
-│   │       ├── engine.py
-│   │       ├── factory.py
-│   │       ├── graph.py
-│   │       ├── manager.py
-│   │       ├── metrics.py
-│   │       ├── station.py
-│   │       └── vehicle.py
-│   │
-│   ├── main.py
-│   ├── requirements.txt
-│   │
-│   ├── generate_dataset.py
-│   ├── train_anomaly.py
-│   ├── train_bottleneck.py
-│   ├── train_defect.py
-│   │
-│   └── test_*.py
-│
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── api/
-│   │   ├── assets/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   ├── index.css
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
-│
-├── .gitignore
-└── README.md
+       DigitalTwin.ai/
+       │
+       ├── backend/
+       │   │
+       │   ├── app/
+       │   │   ├── api/
+       │   │   │   └── twin.py
+       │   │   │
+       │   │   ├── ml/
+       │   │   │   ├── anomaly.py
+       │   │   │   ├── bottleneck.py
+       │   │   │   ├── defect.py
+       │   │   │   ├── features.py
+       │   │   │   ├── live_features.py
+       │   │   │   ├── live_predictor.py
+       │   │   │   ├── recommendation.py
+       │   │   │   ├── risk_score.py
+       │   │   │   └── root_cause.py
+       │   │   │
+       │   │   ├── simulation/
+       │   │   │   ├── dataset.py
+       │   │   │   ├── dynamics.py
+       │   │   │   ├── generator.py
+       │   │   │   ├── propagation.py
+       │   │   │   ├── quality.py
+       │   │   │   └── what_if.py
+       │   │   │
+       │   │   └── twin/
+       │   │       ├── engine.py
+       │   │       ├── factory.py
+       │   │       ├── graph.py
+       │   │       ├── manager.py
+       │   │       ├── metrics.py
+       │   │       ├── station.py
+       │   │       └── vehicle.py
+       │   │
+       │   ├── main.py
+       │   ├── requirements.txt
+       │   │
+       │   ├── generate_dataset.py
+       │   ├── train_anomaly.py
+       │   ├── train_bottleneck.py
+       │   ├── train_defect.py
+       │   │
+       │   └── test_*.py
+       │
+       ├── frontend/
+       │   ├── public/
+       │   ├── src/
+       │   │   ├── api/
+       │   │   ├── assets/
+       │   │   ├── App.jsx
+       │   │   ├── App.css
+       │   │   ├── index.css
+       │   │   └── main.jsx
+       │   ├── package.json
+       │   └── vite.config.js
+       │
+       ├── .gitignore
+       └── README.md
 
 
 ## ⚙️ Technology Stack
@@ -237,7 +237,7 @@ DigitalTwin.ai/
 ### 1. Clone the Repository
        git clone https://github.com/Aniket-8314/DigitalTwin.ai.git
        cd DigitalTwin.ai
-       
+
 ### 2. Backend Setup
 
 Open a terminal:
