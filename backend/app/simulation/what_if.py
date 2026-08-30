@@ -99,57 +99,133 @@ def simulate_station(
         int(baseline_queue + scenario.queue_change),
     )
 
+        # -------------------------------------
+    # Estimate simulated risk
     # -------------------------------------
-    # Estimate risk
+
+    def clamp(value, low=0.0, high=1.0):
+        return max(low, min(high, value))
+
+    # -------------------------------------
+    # Baseline component risks
     # -------------------------------------
 
-    cycle_ratio = simulated_cycle / station.takt_time
-
-    cycle_risk = max(
-        0.0,
-        min(
-            1.0,
-            (cycle_ratio - 0.95) / 0.25,
-        ),
+    baseline_cycle_ratio = (
+        baseline_cycle / station.takt_time
+        if station.takt_time > 0
+        else 1.0
     )
 
-    queue_risk = max(
-        0.0,
-        min(
-            1.0,
-            simulated_queue / 15.0,
-        ),
+    simulated_cycle_ratio = (
+        simulated_cycle / station.takt_time
+        if station.takt_time > 0
+        else 1.0
     )
 
-    vibration_risk = max(
-        0.0,
-        min(
-            1.0,
-            (simulated_vibration - 0.30) / 0.50,
-        ),
+    # Convert each physical signal into a 0-1 risk score.
+    # The ranges are intentionally wider so that the
+    # simulation does not immediately saturate at 100%.
+
+    def cycle_risk(ratio):
+        return clamp(
+            (ratio - 0.90) / 0.50
+        )
+
+    def queue_risk(queue):
+        return clamp(
+            queue / 25.0
+        )
+
+    def vibration_risk(vibration):
+        return clamp(
+            (vibration - 0.20) / 1.00
+        )
+
+    def temperature_risk(temperature):
+        return clamp(
+            (temperature - 50.0) / 30.0
+        )
+
+    def torque_risk(torque):
+        return clamp(
+            abs(torque - baseline_torque) / 10.0
+        )
+
+    # -------------------------------------
+    # Baseline component scores
+    # -------------------------------------
+
+    baseline_cycle_risk = cycle_risk(
+        baseline_cycle_ratio
     )
 
-    temperature_risk = max(
-        0.0,
-        min(
-            1.0,
-            (simulated_temperature - 60.0) / 15.0,
-        ),
+    baseline_queue_risk = queue_risk(
+        baseline_queue
     )
 
-    simulated_risk = (
-        0.40 * cycle_risk
-        + 0.25 * queue_risk
-        + 0.20 * vibration_risk
-        + 0.15 * temperature_risk
+    baseline_vibration_risk = vibration_risk(
+        baseline_vibration
     )
 
-    simulated_risk = max(
-        0.0,
-        min(
-            1.0,
-            simulated_risk,
-        ),
+    baseline_temperature_risk = temperature_risk(
+        baseline_temperature
+    )
+
+    # -------------------------------------
+    # Simulated component scores
+    # -------------------------------------
+
+    simulated_cycle_risk = cycle_risk(
+        simulated_cycle_ratio
+    )
+
+    simulated_queue_risk = queue_risk(
+        simulated_queue
+    )
+
+    simulated_vibration_risk = vibration_risk(
+        simulated_vibration
+    )
+
+    simulated_temperature_risk = temperature_risk(
+        simulated_temperature
+    )
+
+    simulated_torque_risk = torque_risk(
+        simulated_torque
+    )
+
+    # -------------------------------------
+    # Calculate physical risk
+    # -------------------------------------
+
+    physical_baseline_risk = (
+        0.40 * baseline_cycle_risk
+        + 0.25 * baseline_queue_risk
+        + 0.20 * baseline_vibration_risk
+        + 0.15 * baseline_temperature_risk
+    )
+
+    physical_simulated_risk = (
+        0.35 * simulated_cycle_risk
+        + 0.20 * simulated_queue_risk
+        + 0.15 * simulated_vibration_risk
+        + 0.15 * simulated_temperature_risk
+        + 0.15 * simulated_torque_risk
+    )
+
+    # -------------------------------------
+    # Apply change relative to actual
+    # station baseline risk
+    # -------------------------------------
+
+    risk_delta = (
+        physical_simulated_risk
+        - physical_baseline_risk
+    )
+
+    simulated_risk = clamp(
+        baseline_risk + risk_delta * 0.65
     )
 
     # -------------------------------------

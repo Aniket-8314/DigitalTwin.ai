@@ -675,5 +675,7 @@ twin workflow covering:
        Interactive decision support
 
 ## Maintainers
-Aniket Kumar — Project developer
+       Aniket Kumar — Project developer
+       Abhishek Kumar — Project contributor
+       Kumar Yash Raj - Project contributor
 Accenture Innovation Challenge 2026 — Competition context
